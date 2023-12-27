@@ -22,7 +22,15 @@ cards_for_instant_solution = [['rt', 'rt', 'rt', 'rt'],
                                ['rb', 'rb', 'rb', 'rb'],
                                ['rt', 'rt', 'rt', 'rt']]
 
-dogsCards = [[]]
+colas_cards = [['gt','rt','bb','yb'],
+               ['gb','rt','yt','bb'],
+               ['bb','gt','yt','rb'],
+               ['rb','gt','bt','yb'],
+               ['yb','rt','bt','gb'],
+               ['yb','rt','bt','rb'],
+               ['gt','yt','rb','bb'],
+               ['bb','gt','yt','gb'],
+               ['bb','rt','yt','gb']]
 
 
 
@@ -82,7 +90,7 @@ def randomizeArray(cards): # tested, works
 def solver(cards):
     checkCount = 0
     foundAnswer = False
-    update_interval = 10000  # Adjust this value based on your preference
+    update_interval = 10  # Adjust this value based on your preference
 
     while not foundAnswer:
         randomizedArray = randomizeArray(cards)
@@ -104,41 +112,10 @@ def solver(cards):
 
     if foundAnswer:
         print(f'\nFound the answer in {checkCount} attempts')
+        print(randomizedArray)
     else:
         print(f'\nUnable to find a valid solution in {checkCount} attempts')
     return randomizedArray
 
 
-def check_neighbors_test(card, currentIndex, randomizedArray):
-    if currentIndex > 2:
-        north = card[0]
-        northCardIndex = currentIndex - 3
-        northCard = randomizedArray[northCardIndex]
-        if not check_neighbor(north, northCard[2]):
-            return False
-    if (currentIndex + 1) % 3 != 0:
-        east = card[1]
-        eastCardIndex = currentIndex + 1
-        eastCard = randomizedArray[eastCardIndex]
-        if not check_neighbor(east, eastCard[3]):
-            return False
-    if currentIndex < 6:
-        south = card[2]
-        southCardIndex = currentIndex + 3
-        southCard = randomizedArray[southCardIndex]
-        if not check_neighbor(south, southCard[0]):
-            return False
-    if currentIndex % 3 != 0:
-        west = card[3]
-        westCardIndex = currentIndex - 1
-        westCard = randomizedArray[westCardIndex]
-        if not check_neighbor(west, westCard[1]):
-            return False
-    return True
-
-totalMatches = 0
-#bootleg_array = randomizeArray(cards_for_instant_solution)
-for index, card in enumerate(cards_for_instant_solution):
-    print(f'testing card: #{index}({card}) ')
-    if check_neighbors_test(card,index,cards_for_instant_solution) == False:
-        print(f'mismatch at card # {index+1}({card})')
+solver(colas_cards)
